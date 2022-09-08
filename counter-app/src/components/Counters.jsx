@@ -23,6 +23,17 @@ class Counters extends Component {
     const counters = this.state.counters.filter((c) => c.id !== counterId);
     this.setState({ counters });
   };
+
+  handleIncrement = (counter) => {
+    // use spread operator to clone array
+    const counters = [...this.state.counters];
+    // use indexOf method to find the index of the given counter
+    const index = counters.indexOf(counter);
+    counters[index] = { ...counter };
+    counters[index].value++;
+    this.setState({ counters });
+  };
+
   render() {
     return (
       <div>
@@ -36,6 +47,7 @@ class Counters extends Component {
           <Counter
             key={counter.id}
             onDelete={this.handleDelete}
+            onIncrement={this.handleIncrement}
             counter={counter}
           />
         ))}
